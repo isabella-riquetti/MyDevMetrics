@@ -52,21 +52,21 @@ namespace GitLabStats.Controllers
 					if (json.ContainsKey(date))
 					{
 						var actions = json[date];
-						if (actions > 30)
+						if (actions > 15)
 						{
-							color = "#0e4429";
-						}
-						else if (actions > 20)
-						{
-							color = "#006d32";
+							color = "#39d353";
 						}
 						else if (actions > 10)
 						{
 							color = "#26a641";
 						}
+						else if (actions > 5)
+						{
+							color = "#006d32";
+						}
 						else if (actions > 1)
 						{
-							color = "#39d353";
+							color = "#0e4429";
 						}
 					}
 
