@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" viewBox="0 0 728 98" fill="none">
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $.getJSON('@Url.Action("Calendar", "GitLab", new { user = @ViewBag.User })', function (result) {
+            var data = JSON.parse(result);
+            var svgContainer = document.getElementById("svg");
+            var paper = Raphael(svgContainer, 676, 91);
+
+            var today = new Date();
+            today.setHours(0, 0, 0, 0)
+
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            date.setDate(date.getDate() - 365 - 7 + today.getDay());
+
+            var vertical = 0;
+            var horizontal = 0;
+
+            var canStart = false;
+            while (date <= today) {
+                if (!canStart) {
+                    if (date.getDate() == today.getDate()) {
+                        canStart = true;
+                    }
+                }
+
+                if (canStart) {
+                    var actions = data[date.toISOString().split('T')[0]];
+                    if (actions == undefined) {
+                        var color = '#2d333b';
+                    } else {
+                        if (actions > 30) {
+                            color = '#39d353';
+                        } else if (actions > 20) {
+                            color = '#26a641';
+                        } else if (actions > 10) {
+                            color = '#006d32';
+                        } else if (actions > 1) {
+                            color = '#0e4429';
+                        }
+                    }
+                    paper
+                        .rect(horizontal * 14, vertical * 14, 11, 11, 3)
+                        .attr({
+                            fill: color,
+                            stroke: 'none'
+                        });
+                }
+
+                date.setDate(date.getDate() + 1);
+                vertical++;
+                if (vertical == 7) {
+                    vertical = 0;
+                    horizontal++;
+                }
+
+            }
+
+            $.post(
+                '/svg_catcher',
+                { content: svgContainer.innerHTML }
+            );
+        });
+    </script>
+    <body>
+        <div id="svg"></div>
+    </body>
+</svg>
