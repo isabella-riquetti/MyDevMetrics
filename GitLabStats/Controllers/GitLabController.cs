@@ -19,7 +19,7 @@ namespace GitLabStats.Controllers
             _logger = logger;
         }
 
-        [Route("{user}")]
+        [Route("{user}/{theme?}")]
         public IActionResult Index(string user, string theme = "dark")
         {
             ViewBag.User = user;
@@ -27,7 +27,7 @@ namespace GitLabStats.Controllers
             var jsonResponse = new WebClient().DownloadString($"https://gitlab.com/users/{user}/calendar.json");
             var json = JsonConvert.DeserializeObject<Dictionary<DateTime, int>>(jsonResponse);
 
-            var svg = "<svg height=\"105\" version=\"1.1\" width=\"780\" xmlns=\"http://www.w3.org/2000/svg\" style=\"overflow: hidden; position: relative;\">";
+            var svg = "<svg height=\"105\" version=\"1.1\" width=\"795\" xmlns=\"http://www.w3.org/2000/svg\" style=\"overflow: hidden; position: relative;\">";
 
 			var today = DateTime.Now.Date;
 			var date = today.AddDays(-365 - 7 + (int)today.DayOfWeek);
@@ -54,19 +54,19 @@ namespace GitLabStats.Controllers
 						var actions = json[date];
 						if (actions > 30)
 						{
-							color = "#39d353";
+							color = "#0e4429";
 						}
 						else if (actions > 20)
 						{
-							color = "#26a641";
+							color = "#006d32";
 						}
 						else if (actions > 10)
 						{
-							color = "#006d32";
+							color = "#26a641";
 						}
 						else if (actions > 1)
 						{
-							color = "#0e4429";
+							color = "#39d353";
 						}
 					}
 
