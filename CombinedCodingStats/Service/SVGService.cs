@@ -65,8 +65,8 @@ namespace CombinedCodingStats.Service
                         }
 
                         activitySquares += String.Format(ActivitySquare,
-                           horizontal * platform.ActivitySquareDistance + 5,
-                           vertical * platform.ActivitySquareDistance + 7,
+                           horizontal * platform.ActivitySquareDistance + 7.5,
+                           vertical * platform.ActivitySquareDistance + 7.5,
                            platform.ActivitySquareSize,
                            platform.ActivitySquareRounding,
                            color);
@@ -79,8 +79,8 @@ namespace CombinedCodingStats.Service
 
             int width = 53 * platform.ActivitySquareDistance;
             int height = 7 * platform.ActivitySquareDistance;
-            return String.Format(AreaOpen, width + 10, height + 10)
-                + String.Format(Background, width + 10, height + 10, theme.BackgroundColor)
+            return String.Format(AreaOpen, width + 12, height + 12)
+                + String.Format(Background, width + 12, height + 12, theme.BackgroundColor)
                 + activitySquares
                 + AreaClose;
         }

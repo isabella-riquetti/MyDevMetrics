@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using CombinedCodingStats.Infraestructure;
+using System.Linq;
 
 namespace CombinedCodingStats.Controllers
 {
@@ -29,11 +30,13 @@ namespace CombinedCodingStats.Controllers
 		[Route("{user}")]
 		public IActionResult Get(string user, [FromQuery] Dictionary<string, string> parameters)
 		{
+			var parametersLowerCase = parameters.ToDictionary(x => x.Key.ToLower(), x => x.Value.ToLower());
+
 			var activityPerDayResponse = new WebClient().DownloadString(String.Format(_apiUrl, user));
 			var activityPerDay = JsonConvert.DeserializeObject<Dictionary<DateTime, int>>(activityPerDayResponse);
 
-			string platformName = parameters.GetValueOrDefault("platform", _defaultPlatformName);
-			string themeName = parameters.GetValueOrDefault("theme", _defaultThemeName);
+			string platformName = parametersLowerCase.GetValueOrDefault("platform", _defaultPlatformName);
+			string themeName = parametersLowerCase.GetValueOrDefault("theme", _defaultThemeName);
 
 			Platform platform = _platformThemeConfiguration.GetValueOrDefault(platformName, _platformThemeConfiguration[_defaultPlatformName]);
 			Theme theme = platform.Themes.GetValueOrDefault(themeName, platform.Themes[_defaultThemeName]);
