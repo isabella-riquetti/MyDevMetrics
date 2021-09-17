@@ -1,4 +1,5 @@
 ﻿using CombinedCodingStats.Handler.Theme;
+using CombinedCodingStats.Infraestructure;
 using CombinedCodingStats.Model.Theme;
 using System;
 
@@ -6,13 +7,15 @@ namespace CombinedCodingStats.Model.Platform
 {
     public class GitHubService : IGitHubService
     {
-		private readonly IGitHubModel _gitHub;
+        private readonly ISVGService _svgService;
+        private readonly IGitHubModel _gitHub;
         private readonly IThemeHandler<GitHubModel> _themeHandler;
         private ITheme<GitHubModel> theme;
 
-        public GitHubService(IGitHubModel platform, IThemeHandler<GitHubModel> themeHandler)
+        public GitHubService(ISVGService svgService, IGitHubModel platform, IThemeHandler<GitHubModel> themeHandler)
         {
-			_gitHub = platform;
+            _svgService = svgService;
+            _gitHub = platform;
             _themeHandler = themeHandler;
         }
 
@@ -25,8 +28,12 @@ namespace CombinedCodingStats.Model.Platform
         {
             string color = _gitHub.GetColor(this.theme, activity);
 
-            return $"<rect x=\"{horizontal * _gitHub.SQUARE_DISTANCE}\" y=\"{vertical * _gitHub.SQUARE_DISTANCE}\" width=\"{_gitHub.SQUARE_SIZE}\" height=\"{_gitHub.SQUARE_SIZE}\" " +
-				$"r=\"{_gitHub.SQUARE_ROUNDING}\" rx=\"{_gitHub.SQUARE_ROUNDING}\" ry=\"{_gitHub.SQUARE_ROUNDING}\" fill=\"{color}\" stroke=\"none\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></rect>";
+            return String.Format(_svgService.GetActivitySquare(), 
+                horizontal * _gitHub.SQUARE_DISTANCE,
+                vertical * _gitHub.SQUARE_DISTANCE,
+                _gitHub.SQUARE_SIZE,
+                _gitHub.SQUARE_ROUNDING,
+                color);
 		}
     }
 

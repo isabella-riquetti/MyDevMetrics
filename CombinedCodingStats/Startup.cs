@@ -1,6 +1,8 @@
 using CombinedCodingStats.Handler.Theme;
+using CombinedCodingStats.Infraestructure;
 using CombinedCodingStats.Model.Platform;
 using CombinedCodingStats.Model.Theme;
+using CombinedCodingStats.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +29,7 @@ namespace CombinedCodingStats
             services.AddSingleton<IGitHubModel, GitHubModel>();
             services.AddSingleton<IPlatformHandler, PlatformHandler>();
             services.AddSingleton<IGitHubService, GitHubService>();
+            services.AddSingleton<ISVGService, SVGService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
