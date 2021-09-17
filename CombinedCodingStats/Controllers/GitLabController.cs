@@ -35,8 +35,8 @@ namespace CombinedCodingStats.Controllers
 			string platformName = parameters.GetValueOrDefault("platform", _defaultPlatformName);
 			string themeName = parameters.GetValueOrDefault("theme", _defaultThemeName);
 
-			Platform platform = _platformThemeConfiguration[platformName];
-			Theme theme = platform.Themes[themeName];
+			Platform platform = _platformThemeConfiguration.GetValueOrDefault(platformName, _platformThemeConfiguration[_defaultPlatformName]);
+			Theme theme = platform.Themes.GetValueOrDefault(themeName, platform.Themes[_defaultThemeName]);
 
 			var svg = _svgService.BuildGraph(activityPerDay, platform, theme);
 

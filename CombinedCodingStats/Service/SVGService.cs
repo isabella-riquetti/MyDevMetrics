@@ -25,6 +25,7 @@ namespace CombinedCodingStats.Service
             var today = DateTime.Now.Date;
             var date = today.AddDays(-365 - (int)today.DayOfWeek + 1); // A year - days the week (0 = sunday) + one to go to monday
 
+            bool canStart = !platform.StartAtSameDay;
             for (int horizontal = 0; horizontal < 53; horizontal++)
             {
                 for (int vertical = 0; vertical < 7; vertical++)
@@ -32,7 +33,6 @@ namespace CombinedCodingStats.Service
                     if (date > today)
                         continue;
 
-                    var canStart = !platform.StartAtSameDay;
                     if (!canStart)
                     {
                         if (date.Day == today.Day)
@@ -43,8 +43,7 @@ namespace CombinedCodingStats.Service
 
                     if (canStart)
                     {
-                        int activity = 0;
-                        activityPerDay.TryGetValue(date, out activity);
+                        int activity = activityPerDay.GetValueOrDefault(date, 0);
 
                         string color = theme.NoActivityColor;
 
