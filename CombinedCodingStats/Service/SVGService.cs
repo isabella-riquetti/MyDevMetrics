@@ -79,8 +79,8 @@ namespace CombinedCodingStats.Service
 
             int width = 53 * platform.ActivitySquareDistance;
             int height = 7 * platform.ActivitySquareDistance;
-            return String.Format(AreaOpen, width + 12, height + 12)
-                + String.Format(Background, width + 12, height + 12, theme.BackgroundColor)
+            return String.Format(AreaOpen, width + (platform.ActivitySquareDistance * 0.8), height + (platform.ActivitySquareDistance * 0.8))
+                + String.Format(Background, width + (platform.ActivitySquareDistance * 0.8), height + (platform.ActivitySquareDistance * 0.8), theme.BackgroundColor)
                 + activitySquares
                 + AreaClose;
         }
