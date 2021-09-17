@@ -1,15 +1,14 @@
+using CombinedCodingStats.Handler.Theme;
+using CombinedCodingStats.Model.Platform;
+using CombinedCodingStats.Model.Theme;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
 
-namespace GitLabStats
+namespace CombinedCodingStats
 {
     public class Startup
     {
@@ -23,7 +22,17 @@ namespace GitLabStats
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddSingleton<IDarkTheme<GitHubModel>, DarkTheme<GitHubModel>>();
+            services.AddSingleton<IThemeHandler<GitHubModel>, ThemeHandler<GitHubModel>>();
+            services.AddSingleton<IGitHubModel, GitHubModel>();
+            services.AddSingleton<IPlatformHandler, PlatformHandler>();
+            services.AddSingleton<IGitHubService, GitHubService>();
+
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CombinedCodingStats", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,14 +41,11 @@ namespace GitLabStats
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CombinedCodingStats v1"));
             }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -47,9 +53,7 @@ namespace GitLabStats
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=GitLab}/{user}");
+                endpoints.MapControllers();
             });
         }
     }
