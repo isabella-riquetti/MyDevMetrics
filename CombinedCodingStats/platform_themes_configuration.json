@@ -1,0 +1,51 @@
+{
+  "github": {
+    "start_at_same_day": false,
+    "activity_level_1": 1,
+    "activity_level_2": 5,
+    "activity_level_3": 10,
+    "activity_level_4": 15,
+    "activity_square_size": 11,
+    "activity_square_spacing": 4,
+    "activity_square_rounding": 2,
+    "themes": {
+      "dark": {
+        "background_color": "#22272e",
+        "no_activity_color": "#2d333b",
+        "activity_level_1_color": "#0e4429",
+        "activity_level_2_color": "#006d32",
+        "activity_level_3_color": "#26a641",
+        "activity_level_4_color": "#39d353"
+      },
+      "light": {
+        "background_color": "#ffffff",
+        "no_activity_color": "#ebedf0",
+        "activity_level_1_color": "#39d353",
+        "activity_level_2_color": "#26a641",
+        "activity_level_3_color": "#006d32",
+        "activity_level_4_color": "#0e4429"
+      }
+    }
+  },
+  "gitlab": {
+    "start_at_same_day": true,
+    "activity_level_1": 1,
+    "activity_level_2": 10,
+    "activity_level_3": 20,
+    "activity_level_4": 30,
+    "activity_square_size": 15,
+    "activity_square_spacing": 2,
+    "activity_square_rounding": 0,
+    "themes": {
+      "light": {
+        "background_color": "#ffffff",
+        "no_activity_color": "#ededed",
+        "activity_level_1_color": "#acd5f2",
+        "activity_level_2_color": "#7fa8c9",
+        "activity_level_3_color": "#527ba0",
+        "activity_level_4_color": "#254e77"
+      }
+    }
+  }
+
+}

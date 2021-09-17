@@ -1,7 +1,10 @@
-﻿namespace CombinedCodingStats.Infraestructure
+﻿using System;
+using System.Collections.Generic;
+
+namespace CombinedCodingStats.Infraestructure
 {
     public interface ISVGService
     {
-        string GetActivitySquare();
+        string BuildGraph(Dictionary<DateTime, int> activityPerDay, Platform platform, Theme theme);
     }
 }

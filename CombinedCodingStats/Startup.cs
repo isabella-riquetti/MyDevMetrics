@@ -1,7 +1,4 @@
-using CombinedCodingStats.Handler.Theme;
 using CombinedCodingStats.Infraestructure;
-using CombinedCodingStats.Model.Platform;
-using CombinedCodingStats.Model.Theme;
 using CombinedCodingStats.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,11 +21,6 @@ namespace CombinedCodingStats
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDarkTheme<GitHubModel>, DarkTheme<GitHubModel>>();
-            services.AddSingleton<IThemeHandler<GitHubModel>, ThemeHandler<GitHubModel>>();
-            services.AddSingleton<IGitHubModel, GitHubModel>();
-            services.AddSingleton<IPlatformHandler, PlatformHandler>();
-            services.AddSingleton<IGitHubService, GitHubService>();
             services.AddSingleton<ISVGService, SVGService>();
 
             services.AddControllers();

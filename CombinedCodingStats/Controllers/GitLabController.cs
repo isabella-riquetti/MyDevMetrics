@@ -1,12 +1,9 @@
-﻿using CombinedCodingStats.Handler.Theme;
-using CombinedCodingStats.Model.Platform;
-using CombinedCodingStats.Model.Theme;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using CombinedCodingStats.Infraestructure;
 
 namespace CombinedCodingStats.Controllers
 {
@@ -14,59 +11,36 @@ namespace CombinedCodingStats.Controllers
     [Route("[controller]")]
     public class GitLabController : ControllerBase
     {
-		private readonly IPlatformHandler _platformHandler;
+		private readonly ISVGService _svgService;
 
-		public GitLabController(IThemeHandler<GitHubModel> themeHandler, IPlatformHandler platformHandler)
+		private const string _defaultPlatformName = "gitlab";
+		private const string _defaultThemeName = "light";
+		private const string _apiUrl = "https://gitlab.com/users/{0}/calendar.json";
+		private readonly Dictionary<string, Platform> _platformThemeConfiguration;
+
+        public GitLabController(ISVGService svgService)
         {
-			_platformHandler = platformHandler;
+			var data = System.IO.File.ReadAllText(@"platform_themes_configuration.json");
+			_platformThemeConfiguration = JsonConvert.DeserializeObject<Dictionary<string, Platform>>(data);
+
+			_svgService = svgService;
 		}
 
 		[Route("{user}")]
 		public IActionResult Get(string user, [FromQuery] Dictionary<string, string> parameters)
 		{
-			var platformHandler = _platformHandler.Handle(parameters["platform"]);
-			platformHandler.SetTheme(parameters["theme"]);
+			var activityPerDayResponse = new WebClient().DownloadString(String.Format(_apiUrl, user));
+			var activityPerDay = JsonConvert.DeserializeObject<Dictionary<DateTime, int>>(activityPerDayResponse);
 
-			var jsonResponse = new WebClient().DownloadString($"https://gitlab.com/users/{user}/calendar.json");
-			var json = JsonConvert.DeserializeObject<Dictionary<DateTime, int>>(jsonResponse);
+			string platformName = parameters.GetValueOrDefault("platform", _defaultPlatformName);
+			string themeName = parameters.GetValueOrDefault("theme", _defaultThemeName);
 
-			var svg = "<svg height=\"105\" version=\"1.1\" width=\"795\" xmlns=\"http://www.w3.org/2000/svg\" style=\"overflow: hidden; position: relative;\"><rect xmlns=\"http://www.w3.org/2000/svg\" data-testid=\"card-bg\" x=\"0.5\" y=\"0.5\" rx=\"4.5\" height=\"99%\" stroke=\"#000000\" width=\"794\" fill=\"#1a1a1a\" stroke-opacity=\"1\"/>";
+			Platform platform = _platformThemeConfiguration[platformName];
+			Theme theme = platform.Themes[themeName];
 
-			var today = DateTime.Now.Date;
-			var date = today.AddDays(-365 - 7 + (int)today.DayOfWeek);
-
-			var vertical = 0;
-			var horizontal = 0;
-
-			var canStart = false;
-			while (date <= today)
-			{
-				if (!canStart)
-				{
-					if (date.Day == today.Day)
-					{
-						canStart = true;
-					}
-				}
-
-				if (canStart)
-				{
-					svg += platformHandler.GetDateSvgSquare(date, json.ContainsKey(date) ? json[date] : 0, horizontal, vertical);
-				}
-
-				date = date.AddDays(1);
-				vertical++;
-
-				if (vertical == 7)
-				{
-					vertical = 0;
-					horizontal++;
-				}
-			}
-
-			svg += "</svg>";
+			var svg = _svgService.BuildGraph(activityPerDay, platform, theme);
 
 			return Content(svg, "image/svg+xml");
 		}
-    }
+	}
 }
