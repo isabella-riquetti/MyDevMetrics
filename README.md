@@ -82,6 +82,7 @@ New features:
 - [X] Include month and weekday headers
 - [ ] Improve dynamic parametrizarion
 - [ ] Tests
+- [ ] Filter by month
 - [ ] Allow color customization
 - [ ] Start page
 - [ ] Sum GitLab and GitHub metrics
