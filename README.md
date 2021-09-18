@@ -29,6 +29,14 @@ Currently, the available platform and themes available are:
 * GitLab
   * Light
 
+#### Animation
+
+To display static SVG with no animation add `animation=false` to your URL parameters
+```
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/YOURGITLABUSERNAME?animation=false)](https://github.com/YOURGITHUBUSERNAME)
+```
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?animation=false)](https://github.com/isabella-riquetti/CombinedCodingStats)
+
 #### Themes
 
 `GitLab` platform with `Light` theme:
@@ -36,7 +44,7 @@ Currently, the available platform and themes available are:
 ```
 [![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/YOURGITLABUSERNAME?platform=gitlab&theme=light)](https://github.com/YOURGITHUBUSERNAME)
 ```
-![image](https://user-images.githubusercontent.com/19557419/133847088-88672320-f016-43b6-aef4-9c0ebaafbef7.png)
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=gitlab&theme=light)](https://github.com/isabella-riquetti/CombinedCodingStats)
 
 ------------------------------
 `GitHub` platform with `Light` theme:
@@ -44,7 +52,7 @@ Currently, the available platform and themes available are:
 ```
 [![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/YOURGITLABUSERNAME?platform=github&theme=light)](https://github.com/YOURGITHUBUSERNAME)
 ```
-![image](https://user-images.githubusercontent.com/19557419/133847157-7647890b-a4a8-4b34-a95b-f34d723a7f95.png)
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=github&theme=light)](https://github.com/isabella-riquetti/CombinedCodingStats)
 
 ------------------------------
 `GitHub` platform with `Dark` theme:
@@ -52,7 +60,7 @@ Currently, the available platform and themes available are:
 ```
 [![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/YOURGITLABUSERNAME?platform=github&theme=dark)](https://github.com/YOURGITHUBUSERNAME)
 ```
-![image](https://user-images.githubusercontent.com/19557419/133847218-fcab6a28-d696-48b7-9d45-2f16136a6db8.png)
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=github&theme=dark)](https://github.com/isabella-riquetti/CombinedCodingStats)
 
 
 ### Don't forget to credit it by referencing this repo on your README page
