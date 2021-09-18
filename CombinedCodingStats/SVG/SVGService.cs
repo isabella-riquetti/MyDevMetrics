@@ -19,7 +19,7 @@ namespace CombinedCodingStats.Service
             var date = today.AddDays(-365 - (int)today.DayOfWeek + 1); 
 
             bool canStart = !platform.StartAtSameDay;
-            int maxActivity = metrics.Values.Max();
+            int maxActivity = !metrics.Any() ? 0 : metrics.Values.Max();
 
             bool monthWritten = false;
             for (int column = 0; column < 53; column++)
