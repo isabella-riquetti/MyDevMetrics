@@ -44,7 +44,7 @@ To display static SVG with no animation add `animation=false` to your URL parame
 ```
 [![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/YOURGITLABUSERNAME?platform=gitlab&theme=light)](https://github.com/YOURGITHUBUSERNAME)
 ```
-[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=gitlab&theme=light&animation=true)](https://github.com/isabella-riquetti/CombinedCodingStats)
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=gitlab&theme=light)](https://github.com/isabella-riquetti/CombinedCodingStats)
 
 ------------------------------
 `GitHub` platform with `Light` theme:
@@ -52,7 +52,7 @@ To display static SVG with no animation add `animation=false` to your URL parame
 ```
 [![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/YOURGITLABUSERNAME?platform=github&theme=light)](https://github.com/YOURGITHUBUSERNAME)
 ```
-[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=github&theme=light&animation=true)](https://github.com/isabella-riquetti/CombinedCodingStats)
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=github&theme=light)](https://github.com/isabella-riquetti/CombinedCodingStats)
 
 ------------------------------
 `GitHub` platform with `Dark` theme:
@@ -60,7 +60,7 @@ To display static SVG with no animation add `animation=false` to your URL parame
 ```
 [![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/YOURGITLABUSERNAME?platform=github&theme=dark)](https://github.com/YOURGITHUBUSERNAME)
 ```
-[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=github&theme=dark&animation=true)](https://github.com/isabella-riquetti/CombinedCodingStats)
+[![Isabella Riquetti Git Lab](https://combinedcodingstats.azurewebsites.net/gitlab/riquettinha?platform=github&theme=dark)](https://github.com/isabella-riquetti/CombinedCodingStats)
 
 
 ### Don't forget to credit it by referencing this repo on your README page
