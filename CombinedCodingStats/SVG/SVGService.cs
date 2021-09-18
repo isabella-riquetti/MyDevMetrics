@@ -10,8 +10,8 @@ namespace CombinedCodingStats.Service
 
         public string BuildGraph(Dictionary<DateTime, int> metrics, Platform platform, Theme theme, bool animationEnabled = true, bool backgroundEnabled = true)
         {
-            var svgBuilder = new SVGBuilder(platform, theme);
             theme.Config(backgroundEnabled);
+            var svgBuilder = new SVGBuilder(platform, theme);
 
             var today = DateTime.Now.Date;
 

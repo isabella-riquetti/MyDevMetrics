@@ -5,7 +5,7 @@ namespace CombinedCodingStats.Helper
 {
     public static class Helper
     {
-        public static string[] negativeResponses = new string[] { "false", "no", "nao", "não", "disable" };
+        public static string[] negativeResponses = new string[] { "false", "no", "nao", "não", "disable", "disabled" };
         public static bool IsNegativeResponse(this string response)
         {
             response = response.ToLower();

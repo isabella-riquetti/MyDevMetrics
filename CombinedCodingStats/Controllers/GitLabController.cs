@@ -38,7 +38,7 @@ namespace CombinedCodingStats.Controllers
 			string platformName = parametersLowerCase.GetValueOrDefault("platform", DefaultParameter.PLATFORM);
 			string themeName = parametersLowerCase.GetValueOrDefault("theme", DefaultParameter.THEME);
 			string animationResponse = parametersLowerCase.GetValueOrDefault("animation", DefaultParameter.ANIMATION);
-			string backgroundResponse = parametersLowerCase.GetValueOrDefault("animation", DefaultParameter.ANIMATION);
+			string backgroundResponse = parametersLowerCase.GetValueOrDefault("background", DefaultParameter.BACKGROUND);
 
 			Platform platform = 
 				_platformThemeConfiguration.GetValueOrDefault(platformName, _platformThemeConfiguration[DefaultParameter.PLATFORM]);
@@ -49,8 +49,8 @@ namespace CombinedCodingStats.Controllers
 				activityPerDay,
 				platform,
 				theme,
-				animationEnabled: animationResponse.IsNegativeResponse(),
-				backgroundEnabled: backgroundResponse.IsNegativeResponse());
+				animationEnabled: !animationResponse.IsNegativeResponse(),
+				backgroundEnabled: !backgroundResponse.IsNegativeResponse());
 
 			return Content(svg, "image/svg+xml");
 		}
