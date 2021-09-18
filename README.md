@@ -1,3 +1,7 @@
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/19557419/133897129-05ad26b0-2726-4cb7-9d55-9523c7b1bd5f.png"/>
+</p>
+
 # Combined Coding Metrics
 
 This was made purely for fun, I use a lot of repository platforms at work and while freelancing, and always bothered me that I couldn't show my activity easily on my Github README page, since GitHub is almost like my portfolio, so I created this project.
