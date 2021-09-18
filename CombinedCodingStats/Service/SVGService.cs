@@ -8,7 +8,7 @@ namespace CombinedCodingStats.Service
 {
     public class SVGService : ISVGService
     {
-        public const string AreaOpen = "<svg width=\"{0}\" height=\"{1}\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" style=\"overflow: hidden; position: relative;\">";
+        public const string Canva = "<svg width=\"{0}\" height=\"{1}\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" style=\"overflow: hidden; position: relative;\">";
 
         public const string AreaClose = "</svg>";
 
@@ -20,7 +20,15 @@ namespace CombinedCodingStats.Service
 
         public const string ActivitySquareClose = "</rect>";
 
-        public string Animation = "<animate attributeName=\"fill\" values=\"{0}\" dur=\"{1}s\"/>";
+        public const string Animation = "<animate attributeName=\"fill\" values=\"{0}\" dur=\"{1}s\"/>";
+
+        public const string Month = "<text style=\"font-size:{0}px;fill:{1};font-family:{2}\"" +
+            " y=\"{3}\" x=\"{4}\">{5}</text>";
+
+        public const string WeekDays = 
+            "<text style=\"font-size:{0}px;fill:{1};font-family:{2}\" x=\"{3}\" y=\"{4}\" >{5}</text>" +
+            "<text style=\"font-size:{0}px;fill:{1};font-family:{2}\" x=\"{3}\" y=\"{6}\" >{7}</text>" +
+            "<text style=\"font-size:{0}px;fill:{1};font-family:{2}\" x=\"{3}\" y=\"{8}\" >{9}</text>";
 
         public string BuildGraph(Dictionary<DateTime, int> activityPerDay, bool disableAnimation, Platform platform, Theme theme)
         {
@@ -34,10 +42,31 @@ namespace CombinedCodingStats.Service
 
             bool canStart = !platform.StartAtSameDay;
             int maxActivity = activityPerDay.Values.Max();
+
+            string monday = DayOfWeek.Monday.ToString().Substring(0, platform.WeekdaySize),
+                wednesday = DayOfWeek.Wednesday.ToString().Substring(0, platform.WeekdaySize),
+                friday = DayOfWeek.Friday.ToString().Substring(0, platform.WeekdaySize);
+
+            activitySquares += String.Format(WeekDays, platform.FontSize, theme.FontColor, platform.FontFamily, 2,
+                platform.HeaderSpacing + (2 * platform.ActivitySquareDistance), monday,
+                platform.HeaderSpacing + (4 * platform.ActivitySquareDistance), wednesday,
+                platform.HeaderSpacing + (6 * platform.ActivitySquareDistance), friday);
+
+            bool monthWritten = false;
             for (int horizontal = 0; horizontal < 53; horizontal++)
             {
                 for (int vertical = 0; vertical < 7; vertical++)
                 {
+                    if(date.Day == 1)
+                    {
+                        monthWritten = false;
+                    }
+
+                    if(date.Day > 21) // Last week won't fit the month name
+                    {
+                        monthWritten = true;
+                    }
+
                     if (date > today)
                         continue;
 
@@ -47,6 +76,14 @@ namespace CombinedCodingStats.Service
                         {
                             canStart = true;
                         }
+                    }
+
+                    if (!monthWritten && date.DayOfWeek == 0 && canStart) // Start on first monday otm
+                    {
+                        monthWritten = true;
+                        var monthShortName = date.ToString("MMMM").Substring(0, 3);
+                        activitySquares += String.Format(Month, platform.FontSize, theme.FontColor, platform.FontFamily,
+                            17, horizontal * platform.ActivitySquareDistance + platform.WeekDaySpacing, monthShortName);
                     }
 
                     if (canStart)
@@ -74,8 +111,8 @@ namespace CombinedCodingStats.Service
 
                         var activityLevel = platform.GetActivityLevelIndex(activity);
                         activitySquares += String.Format(ActivitySquareOpen,
-                           horizontal * platform.ActivitySquareDistance + 7.5,
-                           vertical * platform.ActivitySquareDistance + 7.5,
+                           horizontal * platform.ActivitySquareDistance + platform.WeekDaySpacing,
+                           vertical * platform.ActivitySquareDistance + platform.MonthSpacing,
                            platform.ActivitySquareSize,
                            platform.ActivitySquareRounding,
                            color,
@@ -97,8 +134,13 @@ namespace CombinedCodingStats.Service
             }
 
 
-            return String.Format(AreaOpen, width + (platform.ActivitySquareDistance * 0.8), height + (platform.ActivitySquareDistance * 0.8))
-                + String.Format(Background, width + (platform.ActivitySquareDistance * 0.8), height + (platform.ActivitySquareDistance * 0.8), theme.BackgroundColor)
+            return String.Format(Canva,
+                width + (platform.ActivitySquareDistance * 0.2) + platform.WeekDaySpacing,
+                height + (platform.ActivitySquareDistance * 0.2) + platform.MonthSpacing)
+                + String.Format(Background,
+                width + (platform.ActivitySquareDistance * 0.2) + platform.WeekDaySpacing,
+                height + (platform.ActivitySquareDistance * 0.2) + platform.MonthSpacing,
+                theme.BackgroundColor)
                 + activitySquares
                 + AreaClose;
         }

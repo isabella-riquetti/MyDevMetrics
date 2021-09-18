@@ -5,6 +5,9 @@ namespace CombinedCodingStats
 {
     public class Theme
     {
+        [JsonProperty("font_color")]
+        public string FontColor { get; set; }
+
         [JsonProperty("background_color")]
         public string BackgroundColor { get; set; }
 
@@ -72,6 +75,25 @@ namespace CombinedCodingStats
 
         [JsonProperty("max_animation_duration")]
         public double MaxAnimationDuration { get; set; }
+
+        [JsonProperty("font_size")]
+        public int FontSize { get; set; }
+
+        [JsonProperty("font_family")]
+        public string FontFamily { get; set; }
+
+        [JsonProperty("weekday_size")]
+        public int WeekdaySize { get; set; }
+
+        [JsonProperty("header_spacing")]
+        public int HeaderSpacing { get; set; }
+
+        [JsonProperty("vertical_header_spacing")]
+        public int? VerticalHeaderSpacing { get; set; }
+
+        public int MonthSpacing => HeaderSpacing + 5;
+        public int WeekDaySpacing => VerticalHeaderSpacing ?? HeaderSpacing + 5;
+
 
         [JsonProperty("themes")]
         public Dictionary<string, Theme> Themes { get; set; }
