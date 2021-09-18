@@ -8,17 +8,17 @@ namespace CombinedCodingStats.Service
     public class SVGService : ISVGService
     {
 
-        public string BuildGraph(Dictionary<DateTime, int> metrics, bool disableAnimation, Platform _platform, Theme _theme)
+        public string BuildGraph(Dictionary<DateTime, int> metrics, Platform platform, Theme theme, bool animationEnabled = true, bool backgroundEnabled = true)
         {
-            var svgBuilder = new SVGBuilder(_platform, _theme);
-            _theme.LoadColors();
+            var svgBuilder = new SVGBuilder(platform, theme);
+            theme.Config(backgroundEnabled);
 
             var today = DateTime.Now.Date;
 
             // A year - days the week (0 = sunday) + one to go to monday
             var date = today.AddDays(-365 - (int)today.DayOfWeek + 1); 
 
-            bool canStart = !_platform.StartAtSameDay;
+            bool canStart = !platform.StartAtSameDay;
             int maxActivity = metrics.Values.Max();
 
             bool monthWritten = false;
@@ -53,11 +53,11 @@ namespace CombinedCodingStats.Service
                     if (canStart)
                     {
                         int dateActivity = metrics.GetValueOrDefault(date, 0);
-                        var dateActivityLevel = _platform.GetActivityLevelIndex(dateActivity);
+                        var dateActivityLevel = platform.GetActivityLevelIndex(dateActivity);
 
                         svgBuilder.BuildActivitySquare(dateActivity, dateActivityLevel, maxActivity, column, line);
 
-                        if(!disableAnimation)
+                        if(!animationEnabled)
                             svgBuilder.BuildAnimation(dateActivity, dateActivityLevel, maxActivity);
 
                         svgBuilder.BuildActivitySquareClosing();

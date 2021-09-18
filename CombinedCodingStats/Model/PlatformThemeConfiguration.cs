@@ -6,6 +6,8 @@ namespace CombinedCodingStats
 {
     public class Theme
     {
+        private const string TRANSPARENT = "transparent";
+
         [JsonProperty("font_color")]
         public string FontColor { get; set; }
 
@@ -18,6 +20,7 @@ namespace CombinedCodingStats
         [JsonProperty("activity_level_1_color")]
         public string ActivityLevel1Color { get; set; }
 
+
         [JsonProperty("activity_level_2_color")]
         public string ActivityLevel2Color { get; set; }
 
@@ -29,12 +32,17 @@ namespace CombinedCodingStats
 
         public List<string> Colors;
 
-        public void LoadColors()
+        internal void Config(bool backgroundEnabled)
         {
             Colors = new List<string>()
             {
                 NoActivityColor, BackgroundColor, ActivityLevel1Color, ActivityLevel2Color, ActivityLevel3Color, ActivityLevel4Color
             };
+            
+            if(!backgroundEnabled)
+            {
+                BackgroundColor = TRANSPARENT;
+            }
         }
 
         public string GetColorsBelow(int activityLevel)

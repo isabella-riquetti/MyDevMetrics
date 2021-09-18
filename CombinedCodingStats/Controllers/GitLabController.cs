@@ -15,9 +15,6 @@ namespace CombinedCodingStats.Controllers
     {
 		private readonly ISVGService _svgService;
 
-		private const string _defaultPlatformName = "gitlab";
-		private const string _defaultThemeName = "light";
-		private const string _defaultAnimationStatus = "true";
 		private const string _apiUrl = "https://gitlab.com/users/{0}/calendar.json";
 		private readonly Dictionary<string, Platform> _platformThemeConfiguration;
 
@@ -38,14 +35,22 @@ namespace CombinedCodingStats.Controllers
 			var activityPerDayResponse = new WebClient().DownloadString(String.Format(_apiUrl, user));
 			var activityPerDay = JsonConvert.DeserializeObject<Dictionary<DateTime, int>>(activityPerDayResponse);
 
-			string platformName = parametersLowerCase.GetValueOrDefault("platform", _defaultPlatformName);
-			string themeName = parametersLowerCase.GetValueOrDefault("theme", _defaultThemeName);
-			string animationResponse = parametersLowerCase.GetValueOrDefault("animation", _defaultAnimationStatus);
+			string platformName = parametersLowerCase.GetValueOrDefault("platform", DefaultParameter.PLATFORM);
+			string themeName = parametersLowerCase.GetValueOrDefault("theme", DefaultParameter.THEME);
+			string animationResponse = parametersLowerCase.GetValueOrDefault("animation", DefaultParameter.ANIMATION);
+			string backgroundResponse = parametersLowerCase.GetValueOrDefault("animation", DefaultParameter.ANIMATION);
 
-			Platform platform = _platformThemeConfiguration.GetValueOrDefault(platformName, _platformThemeConfiguration[_defaultPlatformName]);
-			Theme theme = platform.Themes.GetValueOrDefault(themeName, platform.Themes[_defaultThemeName]);
+			Platform platform = 
+				_platformThemeConfiguration.GetValueOrDefault(platformName, _platformThemeConfiguration[DefaultParameter.PLATFORM]);
+			Theme theme = 
+				platform.Themes.GetValueOrDefault(themeName, platform.Themes[DefaultParameter.THEME]);
 
-			var svg = _svgService.BuildGraph(activityPerDay, animationResponse.IsNegativeResponse(), platform, theme);
+			var svg = _svgService.BuildGraph(
+				activityPerDay,
+				platform,
+				theme,
+				animationEnabled: animationResponse.IsNegativeResponse(),
+				backgroundEnabled: backgroundResponse.IsNegativeResponse());
 
 			return Content(svg, "image/svg+xml");
 		}
