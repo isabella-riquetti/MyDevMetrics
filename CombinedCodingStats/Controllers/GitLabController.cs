@@ -23,7 +23,7 @@ namespace CombinedCodingStats.Controllers
 
         public GitLabController(ISVGService svgService)
         {
-			var data = System.IO.File.ReadAllText(@"platform_themes_configuration.json");
+			var data = System.IO.File.ReadAllText(@"./content/platform_themes_configuration.json");
 			_platformThemeConfiguration = JsonConvert.DeserializeObject<Dictionary<string, Platform>>(data);
 
 			_svgService = svgService;

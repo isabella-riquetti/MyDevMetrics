@@ -8,11 +8,16 @@
     "activity_square_size": 11,
     "activity_square_spacing": 4,
     "activity_square_rounding": 2,
-    "max_animation_duration": 13.0,
-    "header_spacing": 22,
+
+    "max_animation_duration": 15.0,
+
+    "month_header_spacing": 16,
+    "week_header_spacing": 28,
+
     "font_size": 9,
     "font_family": "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'",
     "weekday_size": 3,
+
     "themes": {
       "dark": {
         "font_color": "#adbac7",
@@ -40,15 +45,20 @@
     "activity_level_2": 10,
     "activity_level_3": 20,
     "activity_level_4": 30,
+
     "activity_square_size": 15,
     "activity_square_spacing": 2,
     "activity_square_rounding": 0,
-    "max_animation_duration": 8.0,
-    "header_spacing": 20,
-    "vertical_header_spacing": 17,
+
+    "max_animation_duration": 10.0,
+
+    "month_header_spacing": 18,
+    "week_header_spacing": 18,
+
     "font_size": 12,
     "font_family": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
     "weekday_size": 1,
+
     "themes": {
       "light": {
         "font_color": "#959494",

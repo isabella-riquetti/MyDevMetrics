@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace CombinedCodingStats
@@ -45,6 +46,29 @@ namespace CombinedCodingStats
             }
             return string.Join(';', colorsBelow);
         }
+
+        internal object GetColor(Platform platform, int activity)
+        {
+
+            if (activity >= platform.ActivityLevel4)
+            {
+                return ActivityLevel4Color;
+            }
+            if (activity >= platform.ActivityLevel3)
+            {
+                return ActivityLevel3Color;
+            }
+            if (activity >= platform.ActivityLevel2)
+            {
+                return ActivityLevel2Color;
+            }
+            if (activity >= platform.ActivityLevel1)
+            {
+                return ActivityLevel1Color;
+            }
+
+            return NoActivityColor;
+        }
     }
 
     public class Platform
@@ -68,7 +92,7 @@ namespace CombinedCodingStats
         public int ActivitySquareSize { get; set; }
 
         [JsonProperty("activity_square_spacing")]
-        public int ActivitySquareSpacing { get; set; }
+        public int BaseSpacing { get; set; }
 
         [JsonProperty("activity_square_rounding")]
         public int ActivitySquareRounding { get; set; }
@@ -85,21 +109,18 @@ namespace CombinedCodingStats
         [JsonProperty("weekday_size")]
         public int WeekdaySize { get; set; }
 
-        [JsonProperty("header_spacing")]
-        public int HeaderSpacing { get; set; }
+        [JsonProperty("month_header_spacing")]
+        public int MonthHeaderSpacing { get; set; }
 
-        [JsonProperty("vertical_header_spacing")]
-        public int? VerticalHeaderSpacing { get; set; }
-
-        public int MonthSpacing => HeaderSpacing + 5;
-        public int WeekDaySpacing => VerticalHeaderSpacing ?? HeaderSpacing + 5;
+        [JsonProperty("week_header_spacing")]
+        public int WeekHeaderSpacing { get; set; }
 
 
         [JsonProperty("themes")]
         public Dictionary<string, Theme> Themes { get; set; }
 
-
-        public int ActivitySquareDistance => ActivitySquareSize + ActivitySquareSpacing;
+        public int ExtraMonthHeaderSpacing => 6; // arbritary space
+        public int ActivitySquareDistance => ActivitySquareSize + BaseSpacing;
 
         public int GetActivityLevelIndex(int activity)
         {
