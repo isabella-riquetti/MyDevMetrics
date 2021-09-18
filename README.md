@@ -1,4 +1,4 @@
-# CombinedCodingStats
+# Combined Coding Metrics
 
 This was made purely for fun, I use a lot of repository platforms at work and while freelancing, and always bothered me that I couldn't show my activity easily on my Github README page, since GitHub is almost like my portfolio, so I created this project.
 
@@ -74,10 +74,10 @@ By doing this you help me reach more people and help those people to show their 
 ```
 
 New features:
-[X] Animate image
-[X] Include month and weekday headers
-[ ] Improve dynamic parametrizarion
-[ ] Tests
-[ ] Allow color customization
-[ ] Start page
-[ ] Sum GitLab and GitHub metrics
+- [X] Animate image
+- [X] Include month and weekday headers
+- [ ] Improve dynamic parametrizarion
+- [ ] Tests
+- [ ] Allow color customization
+- [ ] Start page
+- [ ] Sum GitLab and GitHub metrics
