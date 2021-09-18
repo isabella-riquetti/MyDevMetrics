@@ -1,13 +1,13 @@
-﻿using CombinedCodingStats.Infraestructure;
+﻿using Aspose.Svg;
+using CombinedCodingStats.Infraestructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CombinedCodingStats.Service
 {
     public class SVGService : ISVGService
     {
-        private const int _aYearAndOneWeek = -365-7;
-
         public const string AreaOpen = "<svg width=\"{0}\" height=\"{1}\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" style=\"overflow: hidden; position: relative;\">";
 
         public const string AreaClose = "</svg>";
@@ -15,17 +15,25 @@ namespace CombinedCodingStats.Service
         public const string Background = "<rect x=\"0\" y=\"0\" width=\"{0}\" height=\"{1}\" " +
                         "rx=\"4\" ry=\"4\" fill=\"{2}\" stroke=\"none\"></rect>";
 
-        public const string ActivitySquare = "<rect x=\"{0}\" y=\"{1}\" width=\"{2}\" height=\"{2}\" " +
-                "r=\"{3}\" rx=\"{3}\" ry=\"{4}\" fill=\"{4}\" stroke=\"none\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></rect>";
+        public const string ActivitySquareOpen = "<rect x=\"{0}\" y=\"{1}\" width=\"{2}\" height=\"{2}\" " +
+                "r=\"{3}\" rx=\"{3}\" ry=\"{4}\" fill=\"{4}\" stroke=\"none\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">";
 
+        public const string ActivitySquareClose = "</rect>";
 
-        public string BuildGraph(Dictionary<DateTime, int> activityPerDay, Platform platform, Theme theme)
+        public string Animation = "<animate attributeName=\"fill\" values=\"{0}\" dur=\"{1}s\"/>";
+
+        public string BuildGraph(Dictionary<DateTime, int> activityPerDay, bool disableAnimation, Platform platform, Theme theme)
         {
+            theme.LoadColors();
             string activitySquares = "";
             var today = DateTime.Now.Date;
             var date = today.AddDays(-365 - (int)today.DayOfWeek + 1); // A year - days the week (0 = sunday) + one to go to monday
 
+            int width = 53 * platform.ActivitySquareDistance;
+            int height = 7 * platform.ActivitySquareDistance;
+
             bool canStart = !platform.StartAtSameDay;
+            int maxActivity = activityPerDay.Values.Max();
             for (int horizontal = 0; horizontal < 53; horizontal++)
             {
                 for (int vertical = 0; vertical < 7; vertical++)
@@ -64,12 +72,24 @@ namespace CombinedCodingStats.Service
                             color = theme.ActivityLevel1Color;
                         }
 
-                        activitySquares += String.Format(ActivitySquare,
+                        var activityLevel = platform.GetActivityLevelIndex(activity);
+                        activitySquares += String.Format(ActivitySquareOpen,
                            horizontal * platform.ActivitySquareDistance + 7.5,
                            vertical * platform.ActivitySquareDistance + 7.5,
                            platform.ActivitySquareSize,
                            platform.ActivitySquareRounding,
-                           color);
+                           color,
+                           theme.GetColorsBelow(activityLevel),
+                           activity * platform.MaxAnimationDuration / maxActivity);
+
+                        if(!disableAnimation)
+                        {
+                            activitySquares += String.Format(Animation,
+                                theme.GetColorsBelow(activityLevel),
+                                activity * platform.MaxAnimationDuration / maxActivity);
+                        }
+
+                        activitySquares += ActivitySquareClose;
                     }
 
                     date = date.AddDays(1);
@@ -77,8 +97,6 @@ namespace CombinedCodingStats.Service
             }
 
 
-            int width = 53 * platform.ActivitySquareDistance;
-            int height = 7 * platform.ActivitySquareDistance;
             return String.Format(AreaOpen, width + (platform.ActivitySquareDistance * 0.8), height + (platform.ActivitySquareDistance * 0.8))
                 + String.Format(Background, width + (platform.ActivitySquareDistance * 0.8), height + (platform.ActivitySquareDistance * 0.8), theme.BackgroundColor)
                 + activitySquares

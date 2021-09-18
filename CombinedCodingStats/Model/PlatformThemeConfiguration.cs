@@ -22,6 +22,26 @@ namespace CombinedCodingStats
 
         [JsonProperty("activity_level_4_color")]
         public string ActivityLevel4Color { get; set; }
+
+        public List<string> Colors;
+
+        public void LoadColors()
+        {
+            Colors = new List<string>()
+            {
+                NoActivityColor, BackgroundColor, ActivityLevel1Color, ActivityLevel2Color, ActivityLevel3Color, ActivityLevel4Color
+            };
+        }
+
+        public string GetColorsBelow(int activityLevel)
+        {
+            var colorsBelow = Colors.GetRange(0, activityLevel + 2);
+            if(activityLevel > 1)
+            {
+                colorsBelow.RemoveAt(0);
+            }
+            return string.Join(';', colorsBelow);
+        }
     }
 
     public class Platform
@@ -50,10 +70,35 @@ namespace CombinedCodingStats
         [JsonProperty("activity_square_rounding")]
         public int ActivitySquareRounding { get; set; }
 
+        [JsonProperty("max_animation_duration")]
+        public double MaxAnimationDuration { get; set; }
+
         [JsonProperty("themes")]
         public Dictionary<string, Theme> Themes { get; set; }
 
 
         public int ActivitySquareDistance => ActivitySquareSize + ActivitySquareSpacing;
+
+        public int GetActivityLevelIndex(int activity)
+        {
+            if (activity >= ActivityLevel4)
+            {
+                return 4;
+            }
+            if (activity >= ActivityLevel3)
+            {
+                return 3;
+            }
+            if (activity >= ActivityLevel2)
+            {
+                return 2;
+            }
+            if (activity >= ActivityLevel1)
+            {
+                return 1;
+            }
+
+            return 0;
+        }
     }
 }

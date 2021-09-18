@@ -8,6 +8,7 @@
     "activity_square_size": 11,
     "activity_square_spacing": 4,
     "activity_square_rounding": 2,
+    "max_animation_duration":  13.0,
     "themes": {
       "dark": {
         "background_color": "#22272e",
@@ -36,6 +37,7 @@
     "activity_square_size": 15,
     "activity_square_spacing": 2,
     "activity_square_rounding": 0,
+    "max_animation_duration": 8.0,
     "themes": {
       "light": {
         "background_color": "#ffffff",
