@@ -32,7 +32,7 @@ namespace CombinedCodingStats.Controllers
 		public IActionResult Get(string user, [FromQuery] Dictionary<string, object> queryParameters)
 		{
 			var gitLabQueryParameters = queryParameters.ToObject<GitLabMetricsQueryParameters>();
-			var parameters = gitLabQueryParameters.GetParameters();
+			var parameters = gitLabQueryParameters.GetOptions();
 
 			var activityPerDayResponse = new WebClient().DownloadString(String.Format(_apiUrl, user));
 			var activityPerDay = JsonConvert.DeserializeObject<Dictionary<DateTime, int>>(activityPerDayResponse);

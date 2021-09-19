@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CombinedCodingStats.Model.GitLab
+﻿namespace CombinedCodingStats.Model.GitLab
 {
     public class GitLabMetricsOptions
     {
