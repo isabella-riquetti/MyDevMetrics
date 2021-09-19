@@ -1,7 +1,7 @@
 ﻿
 namespace CombinedCodingStats.Service
 {
-    public static class SVGConstants
+    public static class SVGTags
     {
         public static string CanvaOpen = "<svg width=\"{0}\" height=\"{1}\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" style=\"overflow: hidden; position: relative;\">";
 

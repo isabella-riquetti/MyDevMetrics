@@ -32,6 +32,7 @@ namespace CombinedCodingStats
 
         public List<string> Colors;
 
+        // TODO: Move this to ??
         internal void Config(bool backgroundEnabled)
         {
             Colors = new List<string>()
@@ -45,6 +46,7 @@ namespace CombinedCodingStats
             }
         }
 
+        // TODO: Move this to ThemeService
         public string GetColorsBelow(int activityLevel)
         {
             var colorsBelow = Colors.GetRange(0, activityLevel + 2);
@@ -55,6 +57,7 @@ namespace CombinedCodingStats
             return string.Join(';', colorsBelow);
         }
 
+        // TODO: Move this to ThemeService
         internal object GetColor(Platform platform, int activity)
         {
 
@@ -130,6 +133,7 @@ namespace CombinedCodingStats
         public int ExtraMonthHeaderSpacing => 6; // arbritary space
         public int ActivitySquareDistance => ActivitySquareSize + BaseSpacing;
 
+        // TODO: Move this to PlatformService
         public int GetActivityLevelIndex(int activity)
         {
             if (activity >= ActivityLevel4)

@@ -1,4 +1,5 @@
 ﻿using CombinedCodingStats.Infraestructure;
+using CombinedCodingStats.Model.GitLab;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +8,16 @@ namespace CombinedCodingStats.Service
 {
     public class SVGService : ISVGService
     {
-
-        public string BuildGraph(Dictionary<DateTime, int> metrics, Platform platform, Theme theme, bool animationEnabled = true, bool backgroundEnabled = true)
+        public string BuildGraph(Dictionary<DateTime, int> metrics, GitLabMetricsOptions options)
         {
-            theme.Config(backgroundEnabled);
-            var svgBuilder = new SVGBuilder(platform, theme);
+            options.Theme.Config(options.BackgroundEnabled); //TODO: Move this
+            var svgBuilder = new SVGBuilder(options.Platform, options.Theme);
 
             var today = DateTime.Now.Date;
 
-            // A year - days the week (0 = sunday) + one to go to monday
-            var date = today.AddDays(-365 - (int)today.DayOfWeek + 1); 
+            var date = today.AddDays(-365+ (today.DayOfWeek == DayOfWeek.Sunday ? 1 : (8-(int)today.DayOfWeek))); //TODO: Improve the logic here
 
-            bool canStart = !platform.StartAtSameDay;
+            bool canStart = !options.Platform.StartAtSameDay;
             int maxActivity = !metrics.Any() ? 0 : metrics.Values.Max();
 
             bool monthWritten = false;
@@ -26,6 +25,9 @@ namespace CombinedCodingStats.Service
             {
                 for (int line = 0; line < 7; line++)
                 {
+                    if (date > today)
+                        continue;
+
                     //TODO: Calculate the next month position so we won't need all of these checks
                     // Will write month day next sunday
                     if (date.Day == 1) 
@@ -40,7 +42,7 @@ namespace CombinedCodingStats.Service
 
                     // Some platform does not show entire first week
                     if (!canStart) 
-                        if (date.Day == today.Day)
+                        if (date.Day >= today.Day)
                             canStart = true;
 
                     // Start on first monday otm
@@ -53,11 +55,11 @@ namespace CombinedCodingStats.Service
                     if (canStart)
                     {
                         int dateActivity = metrics.GetValueOrDefault(date, 0);
-                        var dateActivityLevel = platform.GetActivityLevelIndex(dateActivity);
+                        var dateActivityLevel = options.Platform.GetActivityLevelIndex(dateActivity);
 
                         svgBuilder.BuildActivitySquare(dateActivity, dateActivityLevel, maxActivity, column, line);
 
-                        if(!animationEnabled)
+                        if(!options.AnimationEnabled)
                             svgBuilder.BuildAnimation(dateActivity, dateActivityLevel, maxActivity);
 
                         svgBuilder.BuildActivitySquareClosing();
@@ -65,6 +67,9 @@ namespace CombinedCodingStats.Service
 
                     date = date.AddDays(1);
                 }
+
+                if (!canStart)
+                    column--;
             }
 
             svgBuilder.BuildCanvaClosing();
