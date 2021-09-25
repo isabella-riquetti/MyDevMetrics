@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CombinedCodingMetrics", "CombinedCodingStats\CombinedCodingMetrics.csproj", "{4ADDCBF3-4C56-472C-9588-2A8709D1D684}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDevMetrics.API", "MyDevMetrics.API\MyDevMetrics.API.csproj", "{4ADDCBF3-4C56-472C-9588-2A8709D1D684}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CombinedCodingMetricsTest", "CombinedCodingStatsTest\CombinedCodingMetricsTest.csproj", "{36D8B8D8-0124-4D9F-9C16-64EF5F683041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDevMetrics.Test", "MyDevMetrics.Test\MyDevMetrics.Test.csproj", "{36D8B8D8-0124-4D9F-9C16-64EF5F683041}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
