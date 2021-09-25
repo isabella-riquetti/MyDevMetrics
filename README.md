@@ -39,7 +39,7 @@ To display static SVG with no animation add `animation=false` to your URL parame
 ```
 [![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/YOURGITLABUSERNAME?animation=false)](https://github.com/YOURGITHUBUSERNAME)
 ```
-[![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/Riquettinha?animation=false&forceRefres=202109180401)](https://github.com/isabella-riquetti/MyDevMetrics)
+[![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/Riquettinha?animation=false&forceRefres=20210925)](https://github.com/isabella-riquetti/MyDevMetrics)
 
 #### Themes
 
@@ -48,7 +48,7 @@ To display static SVG with no animation add `animation=false` to your URL parame
 ```
 [![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/YOURGITLABUSERNAME?platform=gitlab&theme=light)](https://github.com/YOURGITHUBUSERNAME)
 ```
-[![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/Riquettinha?platform=gitlab&theme=light&forceRefres=202109180401)](https://github.com/isabella-riquetti/MyDevMetrics)
+[![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/Riquettinha?platform=gitlab&theme=light&forceRefres=20210925)](https://github.com/isabella-riquetti/MyDevMetrics)
 
 ------------------------------
 `GitHub` platform with `Light` theme:
@@ -56,7 +56,7 @@ To display static SVG with no animation add `animation=false` to your URL parame
 ```
 [![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/YOURGITLABUSERNAME?platform=github&theme=light)](https://github.com/YOURGITHUBUSERNAME)
 ```
-[![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/Riquettinha?platform=github&theme=light&forceRefres=202109180401)](https://github.com/isabella-riquetti/MyDevMetrics)
+[![Isabella Riquetti Git Lab](https://mydevmetrics.azurewebsites.net/GitLab/Riquettinha?platform=github&theme=light&forceRefres=20210925)](https://github.com/isabella-riquetti/MyDevMetrics)
 
 ------------------------------
 `GitHub` platform with `Dark` theme:
