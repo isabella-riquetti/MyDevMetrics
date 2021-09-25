@@ -15,24 +15,18 @@ namespace CombinedCodingStats.Controllers
     public class GitLabController : ControllerBase
     {
 		private readonly ISVGService _svgService;
-
 		private const string _apiUrl = "https://gitlab.com/users/{0}/calendar.json";
-		private readonly Dictionary<string, Platform> _platformThemeConfiguration;
 
 		public GitLabController(ISVGService svgService)
         {
-			var data = System.IO.File.ReadAllText(@"./content/platform_themes_configuration.json");
-			_platformThemeConfiguration = JsonConvert.DeserializeObject<Dictionary<string, Platform>>(data);
-
 			_svgService = svgService;
 		}
 
 		[HttpGet]
 		[Route("{user}")]
-		public IActionResult Get(string user, [FromQuery] Dictionary<string, object> queryParameters)
+		public IActionResult Get(string user, [FromQuery] GitLabMetricsQueryParameters queryParameters)
 		{
-			var gitLabQueryParameters = queryParameters.ToObject<GitLabMetricsQueryParameters>();
-			var parameters = gitLabQueryParameters.GetOptions();
+            var parameters = queryParameters.GetOptions();
 
 			var activityPerDayResponse = new WebClient().DownloadString(String.Format(_apiUrl, user));
 			var activityPerDay = JsonConvert.DeserializeObject<Dictionary<DateTime, int>>(activityPerDayResponse);
@@ -43,5 +37,10 @@ namespace CombinedCodingStats.Controllers
 
 			return Content(svg, "image/svg+xml");
 		}
+
+		public class Para
+        {
+            public string platform { get; set; }
+        }
 	}
 }

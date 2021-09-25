@@ -59,7 +59,7 @@ namespace CombinedCodingStats.Service
 
                         svgBuilder.BuildActivitySquare(dateActivity, dateActivityLevel, maxActivity, column, line);
 
-                        if(!options.AnimationEnabled)
+                        if(options.AnimationEnabled)
                             svgBuilder.BuildAnimation(dateActivity, dateActivityLevel, maxActivity);
 
                         svgBuilder.BuildActivitySquareClosing();
