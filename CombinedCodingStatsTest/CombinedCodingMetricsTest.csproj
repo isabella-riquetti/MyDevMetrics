@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CombinedCodingStats\CombinedCodingStats.csproj" />
+    <ProjectReference Include="..\CombinedCodingStats\CombinedCodingMetrics.csproj" />
   </ItemGroup>
 
   <ItemGroup>
