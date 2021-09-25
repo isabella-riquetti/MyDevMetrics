@@ -80,7 +80,7 @@ By doing this you help me reach more people and help those people to show their 
 New features:
 - [X] Animate image
 - [X] Include month and weekday headers
-- [ ] Improve dynamic parametrizarion
+- [X] Improve dynamic parametrizarion
 - [ ] Tests
 - [ ] Filter by month
 - [ ] Allow color customization
