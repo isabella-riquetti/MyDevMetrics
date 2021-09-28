@@ -1,4 +1,5 @@
 ﻿using CombinedCodingStats.Model.GitLab;
+using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace CombinedCodingStatsTest.ServicesTests
@@ -81,6 +82,7 @@ namespace CombinedCodingStatsTest.ServicesTests
             }
         };
 
+        [ExcludeFromCodeCoverage]
         public class GetOptionsTestInput : TestInput
         {
             public GitLabMetricsQueryParameters QueryParameters { get; set; }
