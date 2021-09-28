@@ -1,5 +1,8 @@
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/19557419/133897129-05ad26b0-2726-4cb7-9d55-9523c7b1bd5f.png"/>
+<br/>
+	<img src="https://github.com/isabella-riquetti/MyDevMetrics/actions/workflows/main.yml/badge.svg"/>
+	<img src="https://coveralls.io/repos/github/isabella-riquetti/MyDevMetrics/badge.svg?branch=master"/>
 </p>
 
 # My Dev Metrics
